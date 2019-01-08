@@ -1,5 +1,6 @@
 import math
 
+'''
 def soma_matriz(m1, m2):
 	col = len(m1[0])
 	lin = len(m1)
@@ -35,8 +36,71 @@ def ler_matriz():
 		v = [int(x) for x in input("Insira a Linha nr "+ str(i+1) +": ").split()]
 		M.append(v)
 	return M
+'''
+
+def translação(matriz): #guess what this is
+        m = matriz
+        col = len(m[0]) #numero de colunas
+        lin = len(m) #numero de linhas
+        transVal = input("insira os valores de translação de X, Y e Z separados por espaços: ").split()
+        for a in range (lin):
+                m[a][0]+=int(transVal[0]) #somar X
+                m[a][1]+=int(transVal[1]) #somar Y
+                m[a][2]+=int(transVal[2]) #somar Z
+        print(m)
+        return m
+
+def reflexão(matriz): #Big chungus was here
+        m = matriz
+        col = len(m[0]) #numero de colunas
+        lin = len(m) #numero de linhas
+        print("""
+Planos:
+XZ.........[1]
+XY.........[2]
+YZ.........[3]""")
+        
+        while True:
+                opcao = int(input("""\nSobre qual plano pretende refletir?\n>"""))
+
+                if opcao == 3:#YZ
+                        opcao = 0     #X
+                        break
+                elif opcao == 2:#XY
+                        opcao = 2     #Z
+                        break
+                elif opcao == 1:#XZ
+                        opcao = 1     #Y
+                        break
+                else:
+                        print("Plano invalido.\n")
+                        
+        for a in range (lin):
+                m[a][opcao]*= -1 #CONTA
+
+        print(m)
+        return m
+                
+
+
+
+'''
+TRANSLAÇÃO
+
+[[1,0,0,tx],[0,1,0,ty],[0,0,1,tz],[0,0,0,1]] * [[x],[y],[z],[1]]
+
+1 * x  +  0 * y  +  0 * z  +  tx * 1  =  x+tx
+x´= x+tx
+
+XZ, XY, YZ
+
+'''
+
+
+
 
 listaPontos = [] #lista para guardar os pontos todos
+
 numeroPontos = int(input("Quantos pontos quer inserir? ")) # pedir o numero de pontos que o utilizador quer
 for i in range(numeroPontos): #loop para dar input dos pontos
 	ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: ").split()]
@@ -47,6 +111,7 @@ for i in range(numeroPontos): #loop para dar input dos pontos
 	#inserir o ponto na lista de pontos na ultima posição
 
 print(listaPontos)
+#listaPontos = MATRIZ
 
 #lista para selecionar a transformacao
 #serie de prints para cada transformacao etc...
@@ -66,7 +131,7 @@ while True:
                 print("5")
                 break
         elif opcao == 4:
-                print("4")
+                reflexão(listaPontos)
                 break
         elif opcao == 3:
                 print("3")
@@ -75,10 +140,21 @@ while True:
                 print("2")
                 break
         elif opcao == 1:
-                vetorTranslacao = [int(x) for x in input("Insira o vetor de translacao (3 coordenadas separadas): ").split()]
+                translação(listaPontos)
                 break
         else:
                 print("Numero invalido.\n")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
