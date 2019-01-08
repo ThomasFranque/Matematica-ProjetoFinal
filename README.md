@@ -1,11 +1,11 @@
 # Matematica-ProjetoFinal
 
-###Realizado por:
+### Realizado por:
   Afonso Rosa
   Rodrigo Pinheiro
   Tomás Franco
   
-##1.	Implementar um programa em Python para aplicar transformações geométricas 3D a listas de pontos
+## 1.	Implementar um programa em Python para aplicar transformações geométricas 3D a listas de pontos
 
 O programa deve implementar as transformações seguintes:
 - translação
@@ -16,11 +16,11 @@ O programa deve implementar as transformações seguintes:
 - composição de várias das operações anteriores, a pedido do utilizador
 
 
-##2.	Entradas e saídas
+## 2.	Entradas e saídas
 
 O programa deve pedir a lista de pontos 3D, pedir a(s) operação(ões) e fornecer a lista de pontos transformada.
 
-##3.	Entrega e discussão
+## 3.	Entrega e discussão
 
 Os trabalhos devem ser entregues e discutidos com o professor, na última aula do semestre.
 Os grupos de trabalho podem ter até 3 pessoas.
