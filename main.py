@@ -60,8 +60,7 @@ print("Mais que 1 operacao ------ 6")
 while True:
         opcao = int(input("O que quer fazer?: "))# pedir opcao
         if opcao == 6:
-                print("Escolhe: Translação simples\n")
-                multOperacoes = [int(x) for x in input("Insira o numero das operacoes separadas por espacos").split()]
+                multOperacoes = [int(x) for x in input("Insira o numero das operacoes separadas por espacos: ").split()]
                 break
         elif opcao == 5:
                 print("5")
@@ -76,11 +75,10 @@ while True:
                 print("2")
                 break
         elif opcao == 1:
-                vetorTranslacao = [int(x) for x in input("Insira o vetor de translacao (3 coordenadas separadas)")]
+                vetorTranslacao = [int(x) for x in input("Insira o vetor de translacao (3 coordenadas separadas): ").split()]
                 break
         else:
                 print("Numero invalido.\n")
-        print(opcao == 5)
 
 
 
