@@ -87,6 +87,20 @@ def matriz_escala(fator_de_escala):#cria matriz adequada para a escala de um obj
         return matriz
 
 
+def prod_matriz(matriz_operacao, ponto): #Produto entre matrizes, recebe 2 matrizes (nao interessa o tamanho destas mas invalido se nao for possivel)
+	col = len(matriz_operacao[0]) #numero de colunas
+	lin = len(ponto) #numero de linhas
+	ponto_apos_operacao = [[0 for c in range(col)]for l in range(lin)] #inicializaacao dos espacos da matriz produto com numero de colunas do m1 e linhas do m2
+	a = 0 #guarda a soma
+
+	for i in range(lin):
+		for j in range(col):
+			a = 0
+			for k in range (len(matriz_operacao[0])):
+				a += matriz_operacao[i][k]*ponto[k][j]
+			ponto_apos_operacao[i][j] = a
+	return ponto_apos_operacao #matriz produto
+
 #quase inutil
 def translação(matriz): #guess what this is
         m = matriz
@@ -155,7 +169,7 @@ listaPontos = [] #lista para guardar os pontos todos
 
 numeroPontos = int(input("Quantos pontos quer inserir? ")) # pedir o numero de pontos que o utilizador quer
 for i in range(numeroPontos): #loop para dar input dos pontos
-	ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: ").split()]
+	ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: \n ").split()]
 	#as tres coordenadas
 	ponto.append(1)
 	#no fim de cada ponto inserir o 1 para fazer multiplicacao com as matrizes 4x4
@@ -197,12 +211,15 @@ while True:
                 print("2")
                 break
         elif opcao == 1:
-                translação(listaPontos)
+                vetor_translacao = [int(x) for x in input("Insira o vetor translacao separado por espacos: ").split()]
+                matriz_T = matriz_Translacao(vetor_translacao)
+                for ponto in listaPontos:
+                        prod_matriz(matriz_T, ponto)
                 break
         else:
                 print("Numero invalido.\n")
 
-
+print(listaPontos)
 
 
 
