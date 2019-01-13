@@ -1,4 +1,4 @@
-import math
+from math import *
 
 '''
 def soma_matriz(m1, m2):
@@ -38,6 +38,56 @@ def ler_matriz():
 	return M
 '''
 
+def matriz_Translacao(vetor_translacao): #cria a matriz translacao para ser usada na funcao de produto de funcoes
+        matriz = []
+        matriz[0] = [1,0,0,vetor_translacao[0]]
+        matriz[1] = [0,1,0,vetor_translacao[0]]
+        matriz[2] = [0,0,1,vetor_translacao[0]]
+        matriz[3] = [0,0,0,1]
+        return matriz
+
+
+def matriz_reflexao(plano): #cria a matriz adequada a reflexao para ser usada na funcao de produto de funcoes
+        matriz = []
+        if plano == "XZ":
+                matriz = [[1,0,0,0][0,-1,0,0][0,0,1,0][0,0,0,1]]
+        elif plano == "XY":
+                matriz = [[1,0,0,0][0,1,0,0][0,0,-1,0][0,0,0,1]]
+        elif plano == "YZ":
+                matriz = [[-1,0,0,0][0,1,0,0][0,0,1,0][0,0,0,1]]
+        return matriz
+
+
+def matriz_rotacao(angulo, eixo): #cria matriz adequada a rotacao com o angulo e eixo que se quer fazer a mesma
+        a = math.radians(angulo) #angulo precisa de estar em radianos para ser passada para a funcao cos() e sen()
+        matriz = []
+        if eixo == "X":
+                matriz = [[1,0,0,0][0,cos(a),-(sen(a)),0][0,sen(a),cos(a),0][0,0,0,1]]
+        elif eixo == "Y":
+                matriz = [[cos(a),0,sen(a),0][0,1,0,0][-(sen(a)),0,cos(a),0][0,0,0,1]]
+        elif eixo == "Z":
+                matriz = [[cos(a),-(sen(a)),0,0][sen(a),cos(a),0,0][0,0,1,0][0,0,0,1]]
+        return matriz
+
+
+def matriz_tesoura(desvioA,desvioB, eixo): #cria matriz adequada a tesoura com os 2 desvios do utilizador e o eixo em que se pretende fazer
+        matriz = []
+        if eixo == "X":
+                 matriz = [[1,desvioA,desvioB,0][0,1,0,0][0,0,1,0][0,0,0,1]]       
+        elif eixo == "Y":
+                matriz = [[1,0,0,0][desvioA,1,desvioB,0][0,0,1,0][0,0,0,1]]  
+        elif eixo == "Z":
+                matriz = [[1,0,0,0][0,1,0,0][desvioA,desvioB,1,0][0,0,0,1]]
+        return matriz
+
+
+def matriz_escala(fator_de_escala):#cria matriz adequada para a escala de um objeto EM RELACAO A ORIGEM 
+        matriz = []
+        matriz = [[fator_de_escala,0,0,0][0,fator_de_escala,0,0][0,0,fator_de_escala,0][0,0,0,1]]
+        return matriz
+
+
+#quase inutil
 def translação(matriz): #guess what this is
         m = matriz
         col = len(m[0]) #numero de colunas
@@ -50,6 +100,8 @@ def translação(matriz): #guess what this is
         print(m)
         return m
 
+
+#quases inutil
 def reflexão(matriz): #Big chungus was here
         m = matriz
         col = len(m[0]) #numero de colunas
@@ -111,7 +163,12 @@ for i in range(numeroPontos): #loop para dar input dos pontos
 	#inserir o ponto na lista de pontos na ultima posição
 
 print(listaPontos)
-#listaPontos = MATRIZ
+#listaPontos = MATRIZ nao, isto nao e verdade, a lista de pontos e unicamente para guardar os pontos inseridos pelo utilizador, nao pode ser usada para contas diretamente, apenas para recolher os pontos.
+
+
+
+
+
 
 #lista para selecionar a transformacao
 #serie de prints para cada transformacao etc...
