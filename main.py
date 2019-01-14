@@ -116,17 +116,34 @@ print(listaPontos)
 
 #lista para selecionar a transformacao
 #serie de prints para cada transformacao etc...
-print("Translação simples ---------- 1")
-print("Rotação em torno de eixo - 2")
-print("Escala ---------------------------- 3")
-print("Reflexao num dos planos -- 4")
-print("Tesoura --------------------------- 5")
-print("Mais que 1 operacao -------- 6")
+print("""
+Translação simples ---------- 1
+Rotação em torno de eixo - 2
+Escala ---------------------------- 3
+Reflexao num dos planos -- 4
+Tesoura --------------------------- 5
+Mais que 1 operacao -------- 6""")
 
 while True:
         opcao = int(input("O que quer fazer?: "))# pedir opcao
         if opcao == 6:
                 multOperacoes = [int(x) for x in input("Insira o numero das operacoes separadas por espacos: ").split()]
+                for operacao in multOperacoes:
+                        if operacao = 1:
+                                 vetor_translacao = [int(x) for x in input("Insira o vetor translacao separado por espacos: ").split()]
+                                matriz = matriz_Translacao(vetor_translacao)
+                        elif operacao = 2:
+                                matriz = matriz_rotacao()
+                        elif operacao = 3:
+                                fator_de_escala = int(input("Insire o factor de escala: "))
+                                matriz = matriz_escala(fator_de_escala)
+                        elif operacao = 4:
+                                matriz = matriz_reflexao()
+                        elif operacao = 5:
+                                desvioA = int(input("Insire o primeiro desvio: "))
+                                desvioB = int(input("Insire o segundo desvio: "))
+                                matriz = matriz_tesoura(desvioA, desvioB)
+                prod_matrizes()
                 break
         elif opcao == 5:
                 desvioA = int(input("Insire o primeiro desvio: "))
