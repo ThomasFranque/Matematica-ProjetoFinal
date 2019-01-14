@@ -26,7 +26,6 @@ YZ.........[3]""")
 
 
 def matriz_rotacao(eixo): #cria matriz adequada a rotacao com o angulo e eixo que se quer fazer a mesma
-        a = math.radians(angulo) #angulo precisa de estar em radianos para ser passada para a funcao cos() e sen()
         matriz = []
         eixo = int(input("\nQuer fazer a rotação em que eixo?\n"))        
         angulo = int(input("Qual o ângulo da rotação?\n")) 
@@ -64,40 +63,40 @@ def matriz_escala(fator_de_escala): #cria matriz adequada para a escala de um ob
 
 
 def prod_matriz(matriz_operacao, matriz_operacao2): #Produto entre matrizes, recebe 2 matrizes (nao interessa o tamanho destas mas invalido se nao for possivel)
-	col = len(matriz_operacao[0]) #numero de colunas
-	lin = len(ponto) #numero de linhas
-	matriz_operacao_final = [[0 for c in range(col)]for l in range(lin)] #inicializaacao dos espacos da matriz produto com numero de colunas do m1 e linhas do m2
-	a = 0 #guarda a soma
-	for i in range(lin):
-		for j in range(col):
-			a = 0
-			for k in range (len(matriz_operacao[0])):
-				a += matriz_operacao[i][k]*matriz_operacao2[k][j]
-			matriz_operacao_final[i][j] = a
-	return matriz_operacao_final #matriz produto
+    col = len(matriz_operacao[0]) #numero de colunas
+    lin = len(ponto) #numero de linhas
+    matriz_operacao_final = [[0 for c in range(col)]for l in range(lin)] #inicializaacao dos espacos da matriz produto com numero de colunas do m1 e linhas do m2
+    a = 0 #guarda a soma
+    for i in range(lin):
+        for j in range(col):
+            a = 0
+            for k in range (len(matriz_operacao[0])):
+                a += matriz_operacao[i][k]*matriz_operacao2[k][j]
+            matriz_operacao_final[i][j] = a
+    return matriz_operacao_final #matriz produto
 
 def prod_matriz_ponto (matriz_operacao, ponto):
-	col = len(matriz_operacao)
-	lin = len(ponto)
-	ponto_apos_operacao= [[0 for c in range(col)] for l in range(lin)]
-	a= 0
-	for i in range(lin):
-		for j in range(col):
-			a = 0
-			a += matriz_operacao[i][j]*ponto[j]
-		ponto_apos_operacao[i] = a
-	return ponto_apos_operacao
+    col = len(matriz_operacao)
+    lin = len(ponto)
+    ponto_apos_operacao= [[0 for c in range(col)] for l in range(lin)]
+    a= 0
+    for i in range(lin):
+                      a = 0
+                      for j in range(col):
+                              a += matriz_operacao[i][j]*ponto[j]
+                      ponto_apos_operacao[i] = a
+    return ponto_apos_operacao
 
 listaPontos = [] #lista para guardar os pontos todos
 novaListaPontos= []
 numeroPontos = int(input("Quantos pontos quer inserir? ")) # pedir o numero de pontos que o utilizador quer
 for i in range(numeroPontos): #loop para dar input dos pontos
-	ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: \n ").split()]
-	#as tres coordenadas
-	ponto.append(1)
-	#no fim de cada ponto inserir o 1 para fazer multiplicacao com as matrizes 4x4
-	listaPontos.append(ponto)
-	#inserir o ponto na lista de pontos na ultima posição
+    ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: \n ").split()]
+    #as tres coordenadas
+    ponto.append(1)
+    #no fim de cada ponto inserir o 1 para fazer multiplicacao com as matrizes 4x4
+    listaPontos.append(ponto)
+    #inserir o ponto na lista de pontos na ultima posição
 
 print(listaPontos)
 #listaPontos = MATRIZ nao, isto nao e verdade, a lista de pontos e unicamente para guardar os pontos inseridos pelo utilizador, nao pode ser usada para contas diretamente, apenas para recolher os pontos.
