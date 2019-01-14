@@ -102,6 +102,7 @@ def prod_matriz_ponto (matriz_operacao, ponto):
 listaPontos = [] #lista para guardar os pontos todos
 novaListaPontos= []
 listaMatrizes = []
+counter = 0
 numeroPontos = int(input("Quantos pontos quer inserir? ")) # pedir o numero de pontos que o utilizador quer
 for i in range(numeroPontos): #loop para dar input dos pontos
     ponto = [int(x) for x in input("Insira as 3 coordenadas separadas por espaços: \n ").split()]
@@ -131,28 +132,36 @@ while True:
                 multOperacoes = [int(x) for x in input("Insira as operacoes separadas por espacos: ").split()]
                 for operacao in multOperacoes:
                         counter += 1
-                        if operacao = 1:
+                        if operacao == 1:
                                 vetor_translacao = [int(x) for x in input("Insira o vetor translacao separado por espacos: ").split()]
                                 matriz = matriz_Translacao(vetor_translacao)
                                 listaMatrizes.append(matriz)
-                        elif operacao = 2:
+                        elif operacao == 2:
                                 matriz = matriz_rotacao()
                                 listaMatrizes.append(matriz)
-                        elif operacao = 3:
+                        elif operacao == 3:
                                 fator_de_escala = int(input("Insire o factor de escala: "))
                                 matriz = matriz_escala(fator_de_escala)
                                 listaMatrizes.append(matriz)
-                        elif operacao = 4:
+                        elif operacao == 4:
                                 matriz = matriz_reflexao()
                                 listaMatrizes.append(matriz)
-                        elif operacao = 5:
+                        elif operacao == 5:
                                 desvioA = int(input("Insire o primeiro desvio: "))
                                 desvioB = int(input("Insire o segundo desvio: "))
                                 matriz = matriz_tesoura(desvioA, desvioB)
                                 listaMatrizes.append(matriz)
 
                 for i in range(counter):
-                       matriz = prod_matrizes()
+                        if i == 0:
+                               matriz = prod_matriz(listaMatrizes[i], listaMatrizes[i+1])
+                        elif (i%2 == 0) :
+                                matriz = prod_matriz(matriz, listaMatrizes[i])
+                        elif (i == counter-1) and (i%2 != 0):
+                                matriz = prod_matriz(matriz, listaMatrizes[i])
+                for ponto in listaPontos:
+                        novoPonto = prod_matriz_ponto(matriz,ponto)
+                        novaListaPontos.append(novoPonto)
                 break
         elif opcao == 5:
                 desvioA = int(input("Insire o primeiro desvio: "))
