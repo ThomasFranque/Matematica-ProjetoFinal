@@ -34,7 +34,7 @@ def matriz_rotacao(): #cria matriz adequada a rotacao com o angulo e eixo que se
         a = math.radians(angulo) #angulo precisa de estar em radianos para ser passada para a funcao cos() e sen()
 
         while True:
-                eixo = input("\nQuer fazer a rotação em que eixo?\n") 
+                eixo = input("\nQuer fazer a rotação em que eixo? Insira X, Y ou Z.\n") 
                 if eixo == "X":
                         matriz = [[1,0,0,0],[0,math.cos(a),-(math.sin(a)),0],[0,math.sin(a),math.cos(a),0],[0,0,0,1]]
                         break
@@ -49,16 +49,22 @@ def matriz_rotacao(): #cria matriz adequada a rotacao com o angulo e eixo que se
         return matriz
 
 
-def matriz_tesoura(desvioA,desvioB, eixo): #cria matriz adequada a tesoura com os 2 desvios do utilizador e o eixo em que se pretende fazer
+def matriz_tesoura(desvioA, desvioB): #cria matriz adequada a tesoura com os 2 desvios do utilizador e o eixo em que se pretende fazer
         matriz = []
-        if eixo == "X":
-                 matriz = [[1,desvioA,desvioB,0][0,1,0,0][0,0,1,0][0,0,0,1]]       
-        elif eixo == "Y":
-                matriz = [[1,0,0,0][desvioA,1,desvioB,0][0,0,1,0][0,0,0,1]]  
-        elif eixo == "Z":
-                matriz = [[1,0,0,0][0,1,0,0][desvioA,desvioB,1,0][0,0,0,1]]
-        else:
-                print("Por favor escolha um eixo válido.\n")
+        
+        while True:
+                eixo = input("\nQuer fazer a tesoura em que eixo? Insira X, Y ou Z.\n")
+                if eixo == "X":
+                        matriz = [[1,desvioA,desvioB,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+                        break
+                elif eixo == "Y":
+                        matriz = [[1,0,0,0],[desvioA,1,desvioB,0],[0,0,1,0],[0,0,0,1]]
+                        break
+                elif eixo == "Z":
+                        matriz = [[1,0,0,0],[0,1,0,0],[desvioA,desvioB,1,0],[0,0,0,1]]
+                        break
+                else:
+                        print("Por favor escolha um eixo válido.\n")
         return matriz
 
 
@@ -123,7 +129,12 @@ while True:
                 multOperacoes = [int(x) for x in input("Insira o numero das operacoes separadas por espacos: ").split()]
                 break
         elif opcao == 5:
-                matriz_tesoura()
+                desvioA = int(input("Insire o primeiro desvio: "))
+                desvioB = int(input("Insire o segundo desvio: "))
+                matriz = matriz_tesoura(desvioA, desvioB)
+                for ponto in listaPontos:
+                        novoPonto = prod_matriz_ponto(matriz,ponto)
+                        novaListaPontos.append(novoPonto)
                 break
         elif opcao == 4:
                 matriz = matriz_reflexao()
