@@ -1,11 +1,11 @@
-from math import *
+import math
 
 def matriz_Translacao(vetor_translacao): #cria a matriz translacao para ser usada na funcao de produto de funcoes
         matriz = [[1,0,0,vetor_translacao[0]], [0,1,0,vetor_translacao[1]],[0,0,1,vetor_translacao[2]], [0,0,0,1]]
         return matriz
 
 
-def matriz_reflexao(plano): #cria a matriz adequada a reflexao para ser usada na funcao de produto de funcoes
+def matriz_reflexao(): #cria a matriz adequada a reflexao para ser usada na funcao de produto de funcoes
         matriz = []
         print("""
 Planos:
@@ -14,30 +14,36 @@ XY.........[2]
 YZ.........[3]""")
         while True:
                 plano = int(input("""\nSobre qual plano pretende refletir?\n"""))
-                if plano == "1":#plano XZ
-                        matriz = [[1,0,0,0][0,-1,0,0][0,0,1,0][0,0,0,1]]
-                elif plano == "2":#plano XY
-                        matriz = [[1,0,0,0][0,1,0,0][0,0,-1,0][0,0,0,1]]
-                elif plano == "3":#plano YZ
-                        matriz = [[-1,0,0,0][0,1,0,0][0,0,1,0][0,0,0,1]]
+                if plano == 1: #plano XZ
+                        matriz = [[1,0,0,0],[0,-1,0,0],[0,0,1,0],[0,0,0,1]]
+                        break
+                elif plano == 2: #plano XY
+                        matriz = [[1,0,0,0],[0,1,0,0],[0,0,-1,0],[0,0,0,1]]
+                        break
+                elif plano == 3: #plano YZ
+                        matriz = [[-1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+                        break
                 else:
                         print("Por favor escolha um plano válido.\n")
         return matriz
 
 
-def matriz_rotacao(eixo): #cria matriz adequada a rotacao com o angulo e eixo que se quer fazer a mesma
-        matriz = []
-        eixo = int(input("\nQuer fazer a rotação em que eixo?\n"))        
+def matriz_rotacao(): #cria matriz adequada a rotacao com o angulo e eixo que se quer fazer a mesma
+        matriz = []       
         angulo = int(input("Qual o ângulo da rotação?\n")) 
         a = math.radians(angulo) #angulo precisa de estar em radianos para ser passada para a funcao cos() e sen()
 
         while True:
+                eixo = input("\nQuer fazer a rotação em que eixo?\n") 
                 if eixo == "X":
-                        matriz = [[1,0,0,0][0,cos(a),-(sen(a)),0][0,sen(a),cos(a),0][0,0,0,1]]
+                        matriz = [[1,0,0,0],[0,math.cos(a),-(math.sin(a)),0],[0,math.sin(a),math.cos(a),0],[0,0,0,1]]
+                        break
                 elif eixo == "Y":
-                        matriz = [[cos(a),0,sen(a),0][0,1,0,0][-(sen(a)),0,cos(a),0][0,0,0,1]]
+                        matriz = [[math.cos(a),0,math.sin(a),0],[0,1,0,0],[-(math.sin(a)),0,math.cos(a),0],[0,0,0,1]]
+                        break
                 elif eixo == "Z":
-                        matriz = [[cos(a),-(sen(a)),0,0][sen(a),cos(a),0,0][0,0,1,0][0,0,0,1]]
+                        matriz = [[math.cos(a),-(math.sin(a)),0,0],[math.sin(a),math.cos(a),0,0],[0,0,1,0],[0,0,0,1]]
+                        break
                 else:
                         print("Por favor escolha um eixo válido.\n")
         return matriz
@@ -58,7 +64,7 @@ def matriz_tesoura(desvioA,desvioB, eixo): #cria matriz adequada a tesoura com o
 
 def matriz_escala(fator_de_escala): #cria matriz adequada para a escala de um objeto EM RELACAO A ORIGEM 
         matriz = []
-        matriz = [[fator_de_escala,0,0,0][0,fator_de_escala,0,0][0,0,fator_de_escala,0][0,0,0,1]]
+        matriz = [[fator_de_escala,0,0,0],[0,fator_de_escala,0,0],[0,0,fator_de_escala,0],[0,0,0,1]]
         return matriz
 
 
@@ -104,12 +110,12 @@ print(listaPontos)
 
 #lista para selecionar a transformacao
 #serie de prints para cada transformacao etc...
-print("Translação simples ------- 1")
+print("Translação simples ---------- 1")
 print("Rotação em torno de eixo - 2")
-print("Escala ------------------- 3")
+print("Escala ---------------------------- 3")
 print("Reflexao num dos planos -- 4")
-print("Tesoura ------------------ 5")
-print("Mais que 1 operacao ------ 6")
+print("Tesoura --------------------------- 5")
+print("Mais que 1 operacao -------- 6")
 
 while True:
         opcao = int(input("O que quer fazer?: "))# pedir opcao
@@ -117,26 +123,32 @@ while True:
                 multOperacoes = [int(x) for x in input("Insira o numero das operacoes separadas por espacos: ").split()]
                 break
         elif opcao == 5:
-                print("5")
+                matriz_tesoura()
                 break
         elif opcao == 4:
-                reflexão(listaPontos)#funciona na reflexão errada
+                matriz = matriz_reflexao()
+                for ponto in listaPontos:
+                        novoPonto = prod_matriz_ponto(matriz,ponto)
+                        novaListaPontos.append(novoPonto)
                 break
         elif opcao == 3:
-                print("3") #NÃO FUNCIONA
-                fator_de_escala = input("Insire o factor de escala: ")
-                matriz_E = matriz_escala(fator_de_escala)
+                fator_de_escala = int(input("Insire o factor de escala: "))
+                matriz = matriz_escala(fator_de_escala)
                 for ponto in listaPontos:
-                        prod_matriz_ponto(matriz_E, ponto)
+                        novoPonto = prod_matriz_ponto(matriz, ponto)
+                        novaListaPontos.append(novoPonto)
                 break
         elif opcao == 2:
-                print("2")
+                matriz = matriz_rotacao()
+                for ponto in listaPontos:
+                        novoPonto = prod_matriz_ponto(matriz, ponto)
+                        novaListaPontos.append(novoPonto)
                 break
         elif opcao == 1:
                 vetor_translacao = [int(x) for x in input("Insira o vetor translacao separado por espacos: ").split()]
-                matriz_T = matriz_Translacao(vetor_translacao)
+                matriz = matriz_Translacao(vetor_translacao)
                 for ponto in listaPontos:
-                        novoPonto = prod_matriz_ponto(matriz_T, ponto)
+                        novoPonto = prod_matriz_ponto(matriz, ponto)
                         novaListaPontos.append(novoPonto)
                 break
         else:
