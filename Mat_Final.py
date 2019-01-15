@@ -75,14 +75,14 @@ def matriz_escala(fator_de_escala): #cria matriz adequada para a escala de um ob
 
 
 def prod_matriz(matriz_operacao, matriz_operacao2): #Produto entre matrizes, recebe 2 matrizes (nao interessa o tamanho destas mas invalido se nao for possivel)
-    col = len(matriz_operacao[0]) #numero de colunas
-    lin = len(ponto) #numero de linhas
+    col = 4 #numero de colunas
+    lin = 4 #numero de linhas
     matriz_operacao_final = [[0 for c in range(col)]for l in range(lin)] #inicializaacao dos espacos da matriz produto com numero de colunas do m1 e linhas do m2
     a = 0 #guarda a soma
     for i in range(lin):
         for j in range(col):
             a = 0
-            for k in range (len(matriz_operacao[0])):
+            for k in range(4):
                 a += matriz_operacao[i][k]*matriz_operacao2[k][j]
             matriz_operacao_final[i][j] = a
     return matriz_operacao_final #matriz produto
@@ -140,7 +140,7 @@ while True:
                                 matriz = matriz_rotacao()
                                 listaMatrizes.append(matriz)
                         elif operacao == 3:
-                                fator_de_escala = int(input("Insire o factor de escala: "))
+                                fator_de_escala = float(input("Insire o factor de escala: "))
                                 matriz = matriz_escala(fator_de_escala)
                                 listaMatrizes.append(matriz)
                         elif operacao == 4:
@@ -151,17 +151,22 @@ while True:
                                 desvioB = int(input("Insire o segundo desvio: "))
                                 matriz = matriz_tesoura(desvioA, desvioB)
                                 listaMatrizes.append(matriz)
-
+                """
                 for i in range(counter):
+                        print(i)
                         if i == 0:
-                               matriz = prod_matriz(listaMatrizes[i], listaMatrizes[i+1])
+                               matriz = prod_matriz(listaMatrizes[0], listaMatrizes[1])
                         elif (i%2 == 0) :
                                 matriz = prod_matriz(matriz, listaMatrizes[i])
-                        elif (i == counter-1) and (i%2 != 0):
+
+                        elif (i == counter-1) and (i%2 != 0) and counter>2:
                                 matriz = prod_matriz(matriz, listaMatrizes[i])
+                """
                 for ponto in listaPontos:
-                        novoPonto = prod_matriz_ponto(matriz,ponto)
-                        novaListaPontos.append(novoPonto)
+                        for m in listaMatrizes:
+                                ponto = prod_matriz_ponto(m,ponto)
+                                
+                        novaListaPontos.append(ponto)
                 break
         elif opcao == 5:
                 desvioA = int(input("Insire o primeiro desvio: "))
@@ -178,7 +183,7 @@ while True:
                         novaListaPontos.append(novoPonto)
                 break
         elif opcao == 3:
-                fator_de_escala = int(input("Insire o factor de escala: "))
+                fator_de_escala = float(input("Insire o factor de escala: "))
                 matriz = matriz_escala(fator_de_escala)
                 for ponto in listaPontos:
                         novoPonto = prod_matriz_ponto(matriz, ponto)
@@ -201,3 +206,4 @@ while True:
                 print("Numero invalido.\n")
 
 print(novaListaPontos)
+input()
